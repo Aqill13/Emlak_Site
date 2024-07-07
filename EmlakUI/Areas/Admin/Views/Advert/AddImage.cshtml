@@ -1,0 +1,52 @@
+﻿@model Advert
+@{
+    ViewData["Title"] = "AddImage";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+
+    #imagePreview img {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: cover;
+    }
+
+</style>
+
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <div class="upload-container form-control">
+        <label>Images</label>
+        <input id="fileInput" type="file" multiple asp-for="Image" accept="image/*" class="form-control" required />
+        <div id="imagePreview"></div>
+    </div>
+    <div class="d-flex gap-3 align-items-center">
+        <button type="submit" class="btn btn-success my-2">Add Images</button>
+        <a asp-action="Index" asp-controller="Advert" class="btn btn-danger d-flex gap-1 align-items-center justify-content-center"><i class="fa-solid fa-xmark"></i>Cancel</a>
+    </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('#fileInput').on('change', function () {
+            var files = this.files;
+            var previewContainer = $('#imagePreview');
+            previewContainer.empty();
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (file.type.startsWith('image/')) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img>').attr('src', e.target.result);
+                        previewContainer.append(img);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    });
+</script>

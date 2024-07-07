@@ -1,0 +1,155 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@model District
+<style>
+
+
+    .toggler input {
+        display: none;
+    }
+
+    .toggler label {
+        display: block;
+        position: relative;
+        width: 72px;
+        height: 36px;
+        border: 1px solid #d6d6d6;
+        border-radius: 36px;
+        background: #e4e8e8;
+        cursor: pointer;
+    }
+
+        .toggler label::after {
+            display: block;
+            border-radius: 100%;
+            background-color: #d7062a;
+            content: '';
+            animation-name: toggler-size;
+            animation-duration: 0.15s;
+            animation-timing-function: ease-out;
+            animation-direction: forwards;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+        }
+
+        .toggler label::after, .toggler label .toggler-on, .toggler label .toggler-off {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            width: 26px;
+            height: 26px;
+            transform: translateY(-50%) translateX(-50%);
+            transition: left 0.15s ease-in-out, background-color 0.2s ease-out, width 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
+        }
+
+    .toggler input:checked + label::after, .toggler input:checked + label .toggler-on, .toggler input:checked + label .toggler-off {
+        left: 75%;
+    }
+
+    .toggler input:checked + label::after {
+        background-color: #50ac5d;
+        animation-name: toggler-size2;
+    }
+
+    .toggler .toggler-on, .toggler .toggler-off {
+        opacity: 1;
+        z-index: 2;
+    }
+
+    .toggler input:checked + label .toggler-off, .toggler input:not(:checked) + label .toggler-on {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    .toggler .path {
+        fill: none;
+        stroke: #fefefe;
+        stroke-width: 7px;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+    }
+
+    @@keyframes toggler-size {
+        0%, 100% {
+            width: 26px;
+            height: 26px;
+        }
+
+        50% {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @@keyframes toggler-size2 {
+        0%, 100% {
+            width: 26px;
+            height: 26px;
+        }
+
+        50% {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>
+<h1>Update District Page</h1>
+<br />
+
+@if (ViewData["Errors"] != null)
+{
+    var errors = (IEnumerable<ModelError>)ViewData["Errors"];
+    foreach (var err in errors)
+    {
+        <div class="alert alert-danger">
+            <p>@err.ErrorMessage</p>
+        </div>
+    }
+}
+
+<form method="post" style="margin-bottom:50px">
+    <label>Associated City</label>
+    <select asp-for="CityId" id="CityId" class="form-control" required>
+        <option value="0">Select a City</option>
+        @foreach (var item in ViewBag.cityList)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    </select>
+    <br />
+
+    <label>Name</label>
+    <input type="text" asp-for="Name" class="form-control" />
+    <br />
+    <div style="display: flex; align-items: center; gap:20px">
+        <label>Status</label>
+        <div class="toggler">
+            <input id="toggler-1" asp-for="Status" type="checkbox">
+            <label for="toggler-1">
+                <svg class="toggler-on" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <polyline class="path check" points="100.2,40.2 51.5,88.8 29.8,67.5"></polyline>
+                </svg>
+                <svg class="toggler-off" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <line class="path line" x1="34.4" y1="34.4" x2="95.8" y2="95.8"></line>
+                    <line class="path line" x1="95.8" y1="34.4" x2="34.4" y2="95.8"></line>
+                </svg>
+            </label>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <div class="buttons d-flex gap-3">
+        <button type="submit" class="btn btn-primary" style="width:80%">Update District</button>
+        <a asp-action="Index" asp-controller="District" class="btn btn-danger d-flex gap-1 align-items-center justify-content-center" style="width:20%">
+            <i class="fa-solid fa-xmark"></i>Cancel
+        </a>
+    </div>
+</form>

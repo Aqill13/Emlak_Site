@@ -1,0 +1,84 @@
+﻿
+@model List<District>
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    .pagetitle {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .pagetitle_add_button {
+        position: fixed;
+        right: 25px;
+        margin-top: 6px;
+    }
+
+    .pagetitle_text {
+        position: fixed;
+    }
+
+    #table-container {
+        position: relative;
+        overflow-x: auto;
+        max-width: 100%;
+        margin-top: 70px;
+    }
+
+    #table td:first-child {
+        position: sticky;
+        left: -1px;
+        z-index: 2;
+        width: 5%;
+    }
+
+</style>
+
+<div class="pagetitle">
+    <div class="pagetitle_text">
+        <h1>City: "@ViewBag.tit" Details</h1>
+    </div>
+    <div class="pagetitle_add_button">
+        <a class="btn btn-warning" asp-area="Admin" asp-controller="City" asp-action="Index">
+            Back
+        </a>
+    </div>
+</div>
+
+<div id="table-container">
+    <table class="table table-bordered display nowrap" id="table" style="width:100%">
+        <thead>
+            <tr>
+                <th class ="text-start" style="background-color:#395886; color:#ffff;">ID</th>
+                <th style="background-color:#628ecb; color:#ffff">District Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-start" style="background-color:#d5deef">@item.Id</td>
+                    <td class="short">@item.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script>
+
+    $(".table").DataTable({
+        "lengthMenu": [[8, 10, 25, 50, -1], [8, 10, 25, 50, "All"]],
+        "pageLength": 8,
+        "scrollX": true,
+    });
+
+
+</script>

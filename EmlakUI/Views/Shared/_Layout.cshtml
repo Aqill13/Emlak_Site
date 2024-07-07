@@ -1,0 +1,211 @@
+﻿<!doctype html>
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords"
+          content="Estates Responsive web template, Bootstrap Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <title>Estates Housing Category Bootstrap Responsive Web Template | Home :: W3Layouts </title>
+    <link href="//fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700;800&display=swap"
+          rel="stylesheet">
+    <!-- Template CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Estates-Starter/assets/css/style-starter.css">
+
+    <style>
+        #registerbtn{
+            margin-right:-40px;
+            color: #3A86FF;
+        }
+
+        .search-right{
+            display:flex;
+            align-items:center;
+        }
+
+        #registerbtn:hover{
+            color: #002766;
+        }
+        #loginbtn{
+            background-color: #3A86FF;
+            color: #fff;
+        }
+        #loginbtn:hover{
+            background-color:transparent;
+            color: #3A86FF;
+            border: 1px solid #3A86FF;
+        }
+    </style>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header-w3l">
+        <!-- header -->
+        <header id="site-header" class="fixed-top">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg stroke">
+                    <a class="navbar-brand pr-lg-5" href="index.html">
+                        <img src="~/Estates-Starter/assets/images/logo.png" alt="" class="img-fluid">Estates
+                    </a>
+                    <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+                            data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                        <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                        </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav mr-lg-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="services.html">Services</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+                            <li class="search-bar ml-lg-4 mt-lg-0 mt-4">
+                                <!--/search-right-->
+                                <form class="search position-relative">
+                                    <input type="search" class="search__input" name="search" placeholder="Search here.."
+                                           onload="equalWidth()" required="">
+                                    <span class="fa fa-search search__icon"></span>
+                                </form>
+
+                                <!--//search-right-->
+                            </li>
+
+                        </ul>
+                        <ul class="navbar-nav search-right mt-lg-0 mt-2">
+                            <li>
+                                <a href="#btn" class="btn btn-style" id="registerbtn">Register</a>
+                            </li>
+                            <li class="mx-3">
+                                <a href="#btn" class="btn btn-style" id="loginbtn">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- toggle switch for light and dark theme -->
+                    <div class="mobile-position">
+                        <nav class="navigation">
+                            <div class="theme-switch-wrapper">
+                                <label class="theme-switch" for="checkbox">
+                                    <input type="checkbox" id="checkbox">
+                                    <div class="mode-container">
+                                        <i class="gg-sun"></i>
+                                        <i class="gg-moon"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- //toggle switch for light and dark theme -->
+                </nav>
+            </div>
+        </header>
+        <!-- //header -->
+    </div>
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- Template JavaScript -->
+    <script src="~/Estates-Starter/assets/js/jquery-3.3.1.min.js"></script>
+
+    <script src="~/Estates-Starter/assets/js/theme-change.js"></script><!-- theme switch js (light and dark)-->
+    <!-- owlcarousel -->
+    <script src="~/Estates-Starter/assets/js/owl.carousel.js"></script>
+    <!-- script for tesimonials carousel slider -->
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo1").owlCarousel({
+                loop: true,
+                nav: false,
+                margin: 50,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false
+                    },
+                    736: {
+                        items: 3,
+                        nav: false
+                    }
+                }
+            })
+        })
+    </script>
+    <!-- //script for tesimonials carousel slider -->
+    <!-- script for tesimonials agency carousel slider -->
+    <script>
+        $(document).ready(function () {
+            $("#owl-agency").owlCarousel({
+                loop: true,
+                nav: false,
+                margin: 50,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false
+                    },
+                    736: {
+                        items: 1,
+                        nav: false
+                    }
+                }
+            })
+        })
+    </script>
+    <!-- //script for tesimonials agency carousel slider -->
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function () {
+            $('.navbar-toggler').click(function () {
+                $('body').toggleClass('noscroll');
+            })
+        });
+    </script>
+    <!-- disable body scroll which navbar is in active -->
+    <!--/MENU-JS-->
+    <script>
+        $(window).on("scroll", function () {
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 80) {
+                $("#site-header").addClass("nav-fixed");
+            } else {
+                $("#site-header").removeClass("nav-fixed");
+            }
+        });
+
+        //Main navigation Active Class Add Remove
+        $(".navbar-toggler").on("click", function () {
+            $("header").toggleClass("active");
+        });
+        $(document).on("ready", function () {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+            $(window).on("resize", function () {
+                if ($(window).width() > 991) {
+                    $("header").removeClass("active");
+                }
+            });
+        });
+    </script>
+    <!--//MENU-JS-->
+
+    <script src="~/Estates-Starter/assets/js/bootstrap.min.js"></script>
+</body>
+</html>

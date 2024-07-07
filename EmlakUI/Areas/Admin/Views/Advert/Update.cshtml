@@ -1,0 +1,250 @@
+﻿@model Advert
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+
+    #imagePreview img {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: cover;
+    }
+
+        .toggler input {
+            display: none;
+        }
+
+        .toggler label {
+            display: block;
+            position: relative;
+            width: 72px;
+            height: 36px;
+            border: 1px solid #d6d6d6;
+            border-radius: 36px;
+            background: #e4e8e8;
+            cursor: pointer;
+        }
+
+            .toggler label::after {
+                display: block;
+                border-radius: 100%;
+                background-color: #d7062a;
+                content: '';
+                animation-name: toggler-size;
+                animation-duration: 0.15s;
+                animation-timing-function: ease-out;
+                animation-direction: forwards;
+                animation-iteration-count: 1;
+                animation-play-state: running;
+            }
+
+            .toggler label::after, .toggler label .toggler-on, .toggler label .toggler-off {
+                position: absolute;
+                top: 50%;
+                left: 25%;
+                width: 26px;
+                height: 26px;
+                transform: translateY(-50%) translateX(-50%);
+                transition: left 0.15s ease-in-out, background-color 0.2s ease-out, width 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
+            }
+
+        .toggler input:checked + label::after, .toggler input:checked + label .toggler-on, .toggler input:checked + label .toggler-off {
+            left: 75%;
+        }
+
+        .toggler input:checked + label::after {
+            background-color: #50ac5d;
+            animation-name: toggler-size2;
+        }
+
+        .toggler .toggler-on, .toggler .toggler-off {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .toggler input:checked + label .toggler-off, .toggler input:not(:checked) + label .toggler-on {
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+
+        .toggler .path {
+            fill: none;
+            stroke: #fefefe;
+            stroke-width: 7px;
+            stroke-linecap: round;
+            stroke-miterlimit: 10;
+        }
+
+    @@keyframes toggler-size {
+        0%, 100% {
+            width: 26px;
+            height: 26px;
+        }
+
+        50% {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @@keyframes toggler-size2 {
+        0%, 100% {
+            width: 26px;
+            height: 26px;
+        }
+
+        50% {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>
+<form method="post" asp-action="Update" enctype="multipart/form-data" style="margin-bottom:50px">
+
+    <input type="hidden" asp-for="UserAdminId" value="@TempData["id"]" />
+    <div style="display: flex; align-items: center; gap:20px">
+        <label>Status</label>
+        <div class="toggler">
+            <input id="toggler-1" asp-for="Status" type="checkbox">
+            <label for="toggler-1">
+                <svg class="toggler-on" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <polyline class="path check" points="100.2,40.2 51.5,88.8 29.8,67.5"></polyline>
+                </svg>
+                <svg class="toggler-off" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <line class="path line" x1="34.4" y1="34.4" x2="95.8" y2="95.8"></line>
+                    <line class="path line" x1="95.8" y1="34.4" x2="34.4" y2="95.8"></line>
+                </svg>
+            </label>
+        </div>
+    </div>
+    <br />
+    <label>Title</label>
+    <input type="text" asp-for="Title" class="form-control" required />
+    <br />
+
+    <label>Description</label>
+    <textarea cols="4" rows="4" asp-for="Description" class="form-control" required></textarea>
+    <br />
+
+    <label>Situation</label>
+    <select asp-for="SituationId" class="form-control" id="SituationId">
+        <option value="0" selected>Select a Situation</option>
+        @foreach (var item in ViewBag.SituationList)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    </select>
+    <br />
+
+    <label>Type</label>
+    <select asp-for="TypeId" class="form-control" id="TypeId">
+        <option value="0" selected>Select a Type</option>
+        @foreach (var item in ViewBag.TypeList)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    </select>
+    <br />
+
+    <label>Area</label>
+    <input type="number" asp-for="Area" class="form-control" required />
+    <br />
+
+    <label>Number Of Rooms</label>
+    <input type="number" asp-for="NumberOfRooms" class="form-control" required />
+    <br />
+
+    <label>Floor</label>
+    <input type="number" asp-for="Floor" class="form-control" required />
+    <br />
+
+    <label>Price</label>
+    <input type="number" asp-for="Price" class="form-control" required />
+    <br />
+    <div class="d-flex mb-4">
+        <div class="w-100 d-flex align-items-center">
+            <input type="checkbox" asp-for="Elevator" style="width:20px;height:20px;" />
+            <label for="Elevator" class="mx-1">Elevator</label>
+        </div>
+        <br />
+
+        <div class="w-100 d-flex align-items-center">
+            <input type="checkbox" asp-for="Pool" style="width:20px;height:20px;" />
+            <label for="Pool" class="mx-1">Pool</label>
+        </div>
+        <br />
+
+        <div class="w-100 d-flex align-items-center">
+            <input type="checkbox" asp-for="Credit" style="width:20px;height:20px;" />
+            <label for="Credit" class="mx-1">Credit</label>
+        </div>
+        <br />
+    </div>
+    <label>City</label>
+    <select asp-for="CityId" class="form-control" id="CityId" required>
+        <option value="0" selected>Select a City</option>
+        @foreach (var item in ViewBag.CityList)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    </select>
+    <br />
+
+    <label>District</label>
+    <select asp-for="DistrictId" class="form-control" id="DistrictId" asp-items="ViewBag.Districts" required>
+        <option value="0" selected>Select a District</option>
+    </select>
+    <br />
+
+    <label>Address</label>
+    <input type="text" asp-for="Address" class="form-control" required />
+    <br />
+
+    <label>Phone number</label>
+    <input type="number" asp-for="PhoneNumber" class="form-control" required maxlength="10" />
+    <br />
+
+    <div class="buttons d-flex gap-3">
+        <button type="submit" class="btn btn-primary" style="width:80%">Update Advert</button>
+        <a asp-action="Index" asp-controller="Advert" class="btn btn-danger d-flex gap-1 align-items-center justify-content-center" style="width:20%"><i class="fa-solid fa-xmark"></i>Cancel</a>
+    </div>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#CityId").change(function () {
+            var id = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Advert/GetDistrict?id=" + id,
+                contentType: "html",
+
+                success: function (response) {
+                    $("#DistrictId").empty();
+                    $("#DistrictId").append(response);
+                }
+            });
+        });
+        $('#fileInput').on('change', function () {
+            var files = this.files;
+            var previewContainer = $('#imagePreview');
+            previewContainer.empty();
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (file.type.startsWith('image/')) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img>').attr('src', e.target.result);
+                        previewContainer.append(img);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    });
+</script>

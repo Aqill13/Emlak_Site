@@ -1,0 +1,256 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@model List<City>
+
+
+<style>
+    .pagetitle {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .pagetitle_add_button {
+        position: fixed;
+        right: 25px;
+        margin-top: 6px;
+    }
+
+    .pagetitle_text {
+        position: fixed;
+    }
+
+    #table-container {
+        position: relative;
+        overflow-x: auto;
+        max-width: 100%;
+        margin-top: 70px;
+    }
+
+    #table td:first-child {
+        position: sticky;
+        left: -1px;
+        z-index: 2;
+    }
+
+    .activeSpan {
+        padding: 3px;
+        border-radius: 7px;
+        background-color: green;
+        color: #fff;
+        font-size: 15px;
+    }
+
+    .passiveSpan {
+        padding: 3px;
+        border-radius: 7px;
+        background-color: red;
+        font-size: 15px;
+        color: #fff;
+    }
+
+    .button {
+        position: relative;
+        width: 202px;
+        height: 45px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid #395886;
+        border-radius: 10px;
+        background-color: #628ECB;
+        transition: 0.2s;
+    }
+
+    .button, .button__icon, .button__text {
+        transition: all 0.3s;
+    }
+
+        .button .button__text {
+            transform: translateX(30px);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .button .button__icon {
+            position: absolute;
+            transform: translateX(164px);
+            height: 100%;
+            width: 39px;
+            background-color: #395886;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            justify-content: center;
+        }
+
+        .button .svg {
+            width: 30px;
+            stroke: #fff;
+        }
+
+        .button:hover {
+            background: #395886;
+        }
+
+            .button:hover .button__text {
+                color: transparent;
+            }
+
+            .button:hover .button__icon {
+                width: 164px;
+                transform: translateX(20px);
+            }
+
+        .button:active {
+            transform: scale(0.9);
+        }
+</style>
+@if (TempData["newCitySuccess"] != null)
+{
+    <script>
+        iziToast.settings({
+            timeout: 3000,
+            resetOnHover: false,
+            icon: 'material-icons',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+        });
+
+        iziToast.success({
+            icon: 'fa-solid fa-check',
+            title: 'Added! ',
+            message: '@TempData["newCitySuccess"]',
+        });
+    </script>
+}
+@if (TempData["updateCity"] != null)
+{
+    <script>
+        iziToast.settings({
+            timeout: 3000,
+            resetOnHover: false,
+            icon: 'material-icons',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+        });
+
+        iziToast.success({
+            icon: 'fa-solid fa-check',
+            title: 'Updated! ',
+            message: '@TempData["updateCity"]',
+        });
+    </script>
+}
+
+<div class="pagetitle">
+    <div class="pagetitle_text">
+        <h1>All Cities</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">All Cities</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="pagetitle_add_button">
+        <a type="button" class="button" asp-area="Admin" asp-controller="City" asp-action="Create">
+            <span class="button__text">Add New City</span>
+            <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+        </a>
+    </div>
+</div>
+
+<div id="table-container">
+    <table class="table table-bordered display nowrap" id="table" style="width:100%">
+        <thead>
+            <tr>
+                <th class="text-start" style="background-color:#395886; color:#ffff;">ID</th>
+                <th style="background-color:#628ecb; color:#ffff">City Name</th>
+                <th style="background-color:#628ecb; color:#ffff">Status</th>
+                <th class="bg-info">Details</th>
+                <th style="background-color:#acffa1">Update</th>
+                <th style="background-color:#ffa1a1">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-start" style="background-color:#d5deef">@item.Id</td>
+                    <td class="short">@item.Name</td>
+                    <td class="short text-center">
+                        @if (item.Status)
+                        {
+                            <span class="activeSpan">Active</span>
+                        }
+                        else
+                        {
+                            <span class="passiveSpan">Passive</span>
+                        }
+                    </td>
+                    <td><a asp-controller="City" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info text-white"><i class="fa-solid fa-circle-info"></i></a></td>
+                    <td><a asp-controller="City" asp-action="Update" asp-route-id="@item.Id" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                    <td><a data-id="@item.Id" class="btn btn-danger deletebtn"><i class="fa-solid fa-trash"></i></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#table").on("click", ".deletebtn", function () {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Bu işlemi geri alamazsınız!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, sil!',
+                cancelButtonText: 'Hayır, iptal et'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var btn = $(this);
+                    var id = btn.data("id");
+                    $.ajax({
+                        type: "GET",
+                        url: "/Admin/City/Delete?id=" + id,
+                        success: function () {
+                            btn.parent().parent().remove()
+                            iziToast.settings({
+                                timeout: 3000,
+                                resetOnHover: false,
+                                icon: 'material-icons',
+                                transitionIn: 'flipInX',
+                                transitionOut: 'flipOutX',
+                            });
+
+                            iziToast.warning({
+                                icon: 'fa-solid fa-check',
+                                title: 'Deleted! ',
+                                message: 'Successful',
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    })
+
+    $(".table").DataTable({
+        "lengthMenu": [[8, 10, 25, 50, -1], [8, 10, 25, 50, "All"]],
+        "pageLength": 8,
+        "scrollX": true,
+    });
+
+
+</script>

@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model District
+
+<h1>Create New District Page</h1>
+<br />
+
+@if (ViewData["Errors"] != null)
+{
+    var errors = (IEnumerable<ModelError>)ViewData["Errors"];
+    foreach (var err in errors)
+    {
+        <div class="alert alert-danger">
+            <p>@err.ErrorMessage</p>
+        </div>
+    }
+}
+
+<form method="post" style="margin-bottom:50px">
+    <label>Associated City</label>
+        <select asp-for="CityId" id="CityId" class="form-control" required>
+            <option value="0">Select a City</option>
+            @foreach (var item in ViewBag.cityList)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    <br />
+
+    <label>Name</label>
+    <input type="text" asp-for="Name" class="form-control" />
+    <br />
+
+    <div class="buttons d-flex gap-3">
+        <button type="submit" class="btn btn-primary" style="width:80%">Add New District</button>
+        <a asp-action="Index" asp-controller="District" class="btn btn-danger d-flex gap-1 align-items-center justify-content-center" style="width:20%">
+            <i class="fa-solid fa-xmark"></i>Cancel
+        </a>
+    </div>
+</form>
