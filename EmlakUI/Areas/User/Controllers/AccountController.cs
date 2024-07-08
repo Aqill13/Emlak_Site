@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmlakUI.Areas.User.Controllers
 {
     [Area("User")]
-    [Authorize(Roles = "User")]
-    public class UserController : Controller
+    //[Authorize(Roles = "User")]
+    public class AccountController : Controller
     {
         private readonly UserManager<UserAdmin> _userManager;
         private readonly SignInManager<UserAdmin> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserService _userService;
 
-        public UserController(UserManager<UserAdmin> userManager, SignInManager<UserAdmin> signInManager,
+        public AccountController(UserManager<UserAdmin> userManager, SignInManager<UserAdmin> signInManager,
             RoleManager<IdentityRole> roleManager, IUserService userService)
         {
             _userManager = userManager;
@@ -53,7 +53,8 @@ namespace EmlakUI.Areas.User.Controllers
                 var login = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
                 if (login.Succeeded)
                 {
-                    return RedirectToAction("Index", "User");
+                    HttpContext.Session.SetString("Id", user.Id);
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
                 else
                 {
@@ -115,7 +116,7 @@ namespace EmlakUI.Areas.User.Controllers
                 {
                     TempData["code"] = code;
                     TempData["mail"] = model.Email;
-                    return RedirectToAction(nameof(ConfirmMail), "User");
+                    return RedirectToAction(nameof(ConfirmMail), "Account");
                 }
             }
             else
@@ -151,7 +152,7 @@ namespace EmlakUI.Areas.User.Controllers
             {
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
-                return RedirectToAction(nameof(Login), "User");
+                return RedirectToAction(nameof(Login), "Account", new { area = "User"} );
             }
             else
             {
@@ -166,7 +167,7 @@ namespace EmlakUI.Areas.User.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Login), "User");
+            return RedirectToAction(nameof(Login), "Account", new { area = "User"});
         }
     }
 }

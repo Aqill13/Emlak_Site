@@ -141,7 +141,7 @@
         font-size:12px;
     }
 </style>
-<form class="form" asp-action="Register" asp-controller="User" asp-area="User">
+<form class="form" asp-action="Register" asp-controller="Account" asp-area="User">
     <p class="title">Register </p>
     <p class="message">Signup now and get full access to our app. </p>
     <div class="flex">
@@ -179,6 +179,6 @@
         <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
     </label>
     <button class="submit" type="submit">Submit</button>
-    <p class="signin">Already have an acount ? <a asp-area="User" asp-controller="User" asp-action="Login">Login</a> </p>
+    <p class="signin">Already have an acount ? <a asp-area="User" asp-controller="Account" asp-action="Login">Login</a> </p>
 </form>
 

@@ -297,7 +297,7 @@
   }
 }</style>
 
-<form class="form-card" asp-controller="User" asp-action="ConfirmMail" asp-area="User">
+<form class="form-card" asp-controller="Account" asp-action="ConfirmMail" asp-area="User">
     <p class="form-card-title">We send a code to your email to confirm this</p>
     <p class="form-card-prompt">Enter the 6-digit code we sent you</p>
     <input type="email" asp-for="Email" autocomplete="off" class="w-100" value="@TempData["mail"]" style="display: none" />

@@ -1,4 +1,9 @@
-﻿<!doctype html>
+﻿@{
+    var user = await _userService.GetUserAsync();
+    var username = user != null ? user.FullName : "Guest";
+}
+
+<!doctype html>
 <html lang="zxx">
 
 <head>
@@ -10,33 +15,91 @@
     <title>Estates Housing Category Bootstrap Responsive Web Template | Home :: W3Layouts </title>
     <link href="//fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700;800&display=swap"
           rel="stylesheet">
+
+    <link href="~/Estates-Starter/assets/images/logo.png" rel="icon" />
     <!-- Template CSS -->
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Estates-Starter/assets/css/style-starter.css">
 
+    <!-- Font aweshome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        #registerbtn{
-            margin-right:-40px;
+        #registerbtn {
+            margin-right: -40px;
             color: #3A86FF;
         }
 
-        .search-right{
-            display:flex;
-            align-items:center;
+        .search-right {
+            display: flex;
+            align-items: center;
         }
 
-        #registerbtn:hover{
+        #registerbtn:hover {
             color: #002766;
         }
-        #loginbtn{
+
+        #loginbtn {
             background-color: #3A86FF;
             color: #fff;
         }
-        #loginbtn:hover{
-            background-color:transparent;
-            color: #3A86FF;
+
+            #loginbtn:hover {
+                background-color: transparent;
+                color: #3A86FF;
+                border: 1px solid #3A86FF;
+            }
+
+        .nav-profile {
             border: 1px solid #3A86FF;
+            height: 43px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
         }
+
+        .header-w3l .navbar-expand-lg .navbar-nav .dropdown-menu:before {
+            content: '';
+            width: 14px;
+            height: 14px;
+            background: #002766;
+            display: block;
+            transform: translateX(-50%) rotateZ(45deg);
+            position: absolute;
+            top: -7px;
+            left: 49%;
+            z-index: 1001;
+            border: 1px solid #3A86FF;
+            border-right: 0;
+            border-bottom: 0;
+        }
+
+        .header-w3l .navbar-expand-lg .navbar-nav .dropdown-menu{
+            background: #002766;
+            margin-top:10px;
+            left:50%;
+            transform:translateX(-50%);
+            position:absolute;
+        }
+
+            .header-w3l .navbar-expand-lg .navbar-nav .dropdown-menu ul li a{
+                display:flex;
+                justify-content:space-around;
+            }
+
+                .header-w3l .navbar-expand-lg .navbar-nav .dropdown-menu ul li:hover span{
+                    color:orange;
+                }
+
+        .header-w3l .navbar-expand-lg .navbar-nav .dropdown-menu ul li span{
+            color:#fff;
+            margin-left:5px;
+            transition:0.2s;
+        }
+
+            .header-w3l .navbar-expand-lg .navbar-nav .dropdown-menu ul li i{
+                color: orange;
+            }
     </style>
 </head>
 
@@ -60,7 +123,7 @@
 
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul class="navbar-nav mr-lg-auto">
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
@@ -86,13 +149,47 @@
 
                         </ul>
                         <ul class="navbar-nav search-right mt-lg-0 mt-2">
-                            <li>
-                                <a href="#btn" class="btn btn-style" id="registerbtn">Register</a>
-                            </li>
-                            <li class="mx-3">
-                                <a href="#btn" class="btn btn-style" id="loginbtn">Login</a>
-                            </li>
-                        </ul>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    <a asp-area="User" asp-controller="Account" asp-action="Register" class="btn btn-style" id="registerbtn">Register</a>
+                                </li>
+                                <li class="mx-3">
+                                    <a asp-area="User" asp-controller="Account" asp-action="Login" class="btn btn-style" id="loginbtn">Login</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <div class="dropdown">
+                                    <a class="nav-link nav-profile dropdown-toggle d-flex align-items-center pe-0 mx-4" id="dropdownMenuButton" style="color:#3A86FF;padding-left:5px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span><i class="fa-solid fa-user"></i></span>
+                                        <span class="d-none d-md-block dropdown-toggle ps-2 p-2">@username</span>
+                                    </a>
+                                    <div class="dropdown-menu" style="border-color: #3A86FF;" aria-labelledby="dropdownMenuButton">
+                                        <ul>
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center" asp-area="User" asp-controller="Advert" asp-action="Index">
+                                                    <i class="fa-regular fa-user"></i>
+                                                    <span>My Profile</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                                    <i class="fa-solid fa-gear"></i>
+                                                    <span>Account Settings</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center" asp-area="User" asp-controller="Account" asp-action="LogOut">
+                                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                                    <span>Sign Out</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
                     </div>
                     <!-- toggle switch for light and dark theme -->
                     <div class="mobile-position">

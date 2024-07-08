@@ -14601,21 +14601,7 @@ a.navbar-brand img {
   transform: translateX(-50px);
 }
 
-.header-w3l .navbar-expand-lg .navbar-nav .dropdown-menu:before {
-  content: '';
-  width: 14px;
-  height: 14px;
-  background: var(--bg-color);
-  display: block;
-  transform: translateX(-50%) rotateZ(45deg);
-  position: absolute;
-  top: -7px;
-  left: 49%;
-  z-index: 1001;
-  border: 1px solid var(--border-color-light);
-  border-right: 0;
-  border-bottom: 0;
-}
+
 
 .header-w3l header.nav-fixed {
   padding: 0px;
