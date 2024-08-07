@@ -19,6 +19,8 @@ namespace DataAccessLayer.Data
         {
         }
         public DbSet<Advert> Adverts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Favorites> Favorites { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<GeneralSettings> GeneralSettings { get; set; }

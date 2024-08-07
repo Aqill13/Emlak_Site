@@ -1,16 +1,13 @@
 ﻿using BusinessLayer.Abstract;
 using EntityLayer.Entities;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EmlakUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "AdminPolicy")]
     public class AdvertController : Controller
     {
         IAdvertService _advertService;
@@ -97,7 +94,7 @@ namespace EmlakUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            TempData["id"] = _userService.GetUserId();
+            TempData["adminid"] = _userService.GetUserId();
 
             await DropDown();
 
@@ -108,6 +105,9 @@ namespace EmlakUI.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var errors = ModelState.Values.SelectMany(x => x.Errors);
+                ViewData["Errors"] = errors;
+                TempData["adminid"] = _userService.GetUserId();
                 await DropDown(data);
                 return View(data);
             }
@@ -128,7 +128,7 @@ namespace EmlakUI.Areas.Admin.Controllers
             data.Status = true;
             await _advertService.BL_CreateAsync(data);
             TempData["newAdvertSuccess"] = "New Advert Added";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Advert", new { area = "Admin" });
         }
 
         //Advert delete process
@@ -145,19 +145,26 @@ namespace EmlakUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            TempData["id"] = _userService.GetUserId();
             var updateRow = await _advertService.BL_ReadAsync(id);
+
+            if (updateRow.UserAdminId != TempData["adminId"])
+            {
+                TempData["id"] = updateRow.UserAdminId;
+            }
+            else
+            {
+                TempData["id"] = TempData["adminId"];
+            }
 
             await DropDown(updateRow);
             return View(updateRow);
         }
-
+            
         [HttpPost]
         public async Task<IActionResult> Update(Advert upData)
         {
             if (ModelState.IsValid)
             {
-                upData.Images.Clear();
                 if (upData.Image != null)
                 {
                     foreach (var item in upData.Image)

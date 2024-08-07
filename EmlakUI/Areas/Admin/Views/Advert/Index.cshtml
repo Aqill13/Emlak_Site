@@ -203,6 +203,7 @@
                 <th style="background-color:#628ecb; color:#ffff">Elevator</th>
                 <th style="background-color:#628ecb; color:#ffff">Pool</th>
                 <th style="background-color:#628ecb; color:#ffff">Price</th>
+                <th style="background-color:#628ecb; color:#ffff">Price Type</th>
                 <th style="background-color:#628ecb; color:#ffff">Credit</th>
                 <th style="background-color:#628ecb; color:#ffff">City</th>
                 <th style="background-color:#628ecb; color:#ffff">District</th>
@@ -227,7 +228,7 @@
                     <td>@item.Situation.Name</td>
                     <td>@item.Area</td>
                     <td>@item.NumberOfRooms</td>
-                    <td>@item.Floor</td>
+                    <td>@item.Floor / @item.fullFloor</td>
                     <td class="text-center">
                         @if (item.Elevator)
                         {
@@ -249,6 +250,7 @@
                         }
                     </td>
                     <td>@item.Price</td>
+                    <td>@item.PriceType</td>
                     <td class="text-center">
                         @if (item.Credit)
                         {

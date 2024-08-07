@@ -12,6 +12,6 @@ namespace EntityLayer.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Status { get; set; }
-        public virtual List<Advert?> Adverts { get; set; }
+        public virtual List<Advert> Adverts { get; set; } = new List<Advert>();
     }
 }

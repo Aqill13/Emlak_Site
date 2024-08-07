@@ -157,12 +157,28 @@
     <input type="number" asp-for="NumberOfRooms" class="form-control" required />
     <br />
 
-    <label>Floor</label>
-    <input type="number" asp-for="Floor" class="form-control" required />
+    <div style="display: flex; gap:20px; align-items: center;">
+        <label>Floor</label>
+        <input type="number" asp-for="Floor" class="form-control" required />
+        <label>Full Floor</label>
+        <input type="number" asp-for="fullFloor" class="form-control" required />
+    </div>
     <br />
 
-    <label>Price</label>
-    <input type="number" asp-for="Price" class="form-control" required />
+    <div id="priceDiv" style="display: flex; gap: 20px; align-items: center">
+        <div style="display: none;" id="priceType">
+            <div class="d-flex w-100">
+                <label>Price Type</label>
+                <select asp-for="PriceType" class="form-control">
+                    <option value="">Select a price type</option>
+                    <option value="Günlük">Günlük</option>
+                    <option value="Aylıq">Aylıq</option>
+                </select>
+            </div>
+        </div>
+        <label>Price</label>
+        <input type="text" id="price" asp-for="Price" class="form-control" required>
+    </div>
     <br />
     <div class="d-flex mb-4">
         <div class="w-100 d-flex align-items-center">
@@ -214,7 +230,17 @@
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $('#SituationId').change(function () {
+            var selectedSituation = $(this).val();
 
+            if (selectedSituation === '1') {
+                $('#priceType').show();
+            } else {
+                $('#priceType').hide();
+            }
+        });
+    });
     $(document).ready(function () {
         $("#CityId").change(function () {
             var id = $(this).val();

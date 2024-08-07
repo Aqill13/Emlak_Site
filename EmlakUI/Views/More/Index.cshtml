@@ -1,0 +1,308 @@
+﻿@model EntityLayer.Entities.Advert
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pNumber = "994" + Model.PhoneNumber.Substring(1);
+}
+@using System.Security.Claims
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+    .favorite {
+        border: none;
+        background: transparent;
+        border-radius: 5px;
+        gap: 7px;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        font-family:Verdana;
+        transition: 0.3s;
+    }
+
+    .headerdiv h3 {
+        font-family: "Nunito", sans-serif;
+        color: #333;
+    }
+
+    .coverimg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 500px;
+        max-width: 100%;
+        border-radius: 5px;
+        position: relative;
+        background: #9999;
+        border: 1px solid #999;
+    }
+
+        .coverimg img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 0;
+            z-index: 10;
+        }
+
+    .nextCoverImg {
+        display: grid;
+        grid-template-columns: repeat(8,1fr);
+        gap: 4px;
+    }
+
+        .nextCoverImg img {
+            width: 70px;
+            height: 70px;
+            border-radius: 3px;
+            object-fit: cover;
+            z-index: 11;
+        }
+
+    .boxess{
+        margin-top:40px;
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .boxess .box{
+        display:flex;
+    }
+    .boxess .box p{
+        width:100px;
+    }
+    .boxess .box p:first-child{
+        color: #333;
+    }
+
+    .favorite:hover {
+        background:red;
+        color: #fff;
+    }
+
+    .favorite:active {
+        transform: scale(0.95) translateY(-10px);
+    }
+
+    .favorite.favorited {
+        background-color: red; 
+        color: white; 
+        cursor: not-allowed; 
+    }
+
+    .price_num{
+        display: flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:50px;
+        margin-top:40px;
+    }
+    #price_num{
+        width:100%;
+        border-radius:10px;
+        height:80px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+    }
+    .num{
+        border: 1px solid #3e89ff;
+    }
+    .price{
+        border: 1px solid #FB5607;
+    }
+
+        .num h5{
+            color: #3e89ff;
+        }
+    #price_num h4{
+            color: #FB5607;
+    }
+</style>
+
+<section class="w3l-grids-4 py-5 my-3">
+    <div class="container  py-md-5">
+
+        <div class="headerdiv d-flex justify-content-between">
+            @if(Model.SituationId == 1)
+            {
+                <h3>Kirayə verilir @Model.NumberOfRooms otaqlı @Model.Type.Name @Model.Area m², @Model.City.Name @Model.District.Name</h3>
+            }
+            else
+            {
+                <h3>Satılır @Model.NumberOfRooms otaqlı @Model.Type.Name @Model.Area m², @Model.City.Name @Model.District.Name</h3>
+            }
+            <button class="favorite" data-id="@Model.Id"><i class="fa-regular fa-heart"></i>Seçilmişlərdə saxla</button>
+        </div>
+
+        <div class="my-4 d-flex gap-4" style="width:100%">
+            <div class="img" style="width:100%">
+                <div class="coverimg">
+                    <img id="mainImg" src="/Pictures/@Model.Images.First().ImageUrl" alt="coverimg" />
+                </div>
+                <div class="nextCoverImg my-2">
+                    @foreach (var item in Model.Images)
+                    {
+                        <img class="nextImg" src="/Pictures/@item.ImageUrl" alt="img" />
+                    }
+                </div>
+            </div>
+            <div class="info" style="width:100%;">
+                <div class="date">
+                    <p style="color:#3e89ff">Elanın yerləşdirilimə tarixi:  @Model.AdvertDate</p>
+                </div>
+                <div class="price_num">
+                    <div class="price" id="price_num">
+                        @if (Model.PriceType == "Aylıq")
+                        {
+                            <h4>@Model.Price AZN/ay</h4>
+                        }
+                        else if(Model.PriceType == "Günlük")
+                        {
+                            <h4>@Model.Price AZN/gün</h4>
+                        }
+                        else
+                        {
+                            <h4>@Model.Price AZN</h4>
+                        }
+                    </div>
+                    <a class="num" id="price_num" href="tel: @pNumber">
+                        <p>@Model.UserAdmin.FullName</p>
+                        <h5>@Model.PhoneNumber</h5>
+                    </a>
+                </div>
+                <div class="boxess">
+                    <div class="box">
+                        <p>Kateqoriya</p>
+                        <p>@Model.Type.Name</p>
+                    </div>
+                    <div class="box">
+                        <p>Mərtəbə</p>
+                        <p>@Model.Floor/@Model.fullFloor</p>
+                    </div>
+                    <div class="box">
+                        <p>Sahə</p>
+                        <p>@Model.Area</p>
+                    </div>
+                    <div class="box">
+                        <p>Otaq sayı</p>
+                        <p>@Model.NumberOfRooms</p>
+                    </div>
+                    <div class="box">
+                        <p>Lift</p>
+                        @if (Model.Elevator)
+                        {
+                            <p>Var</p>
+                        }
+                        else
+                        {
+                            <p>Yoxdur</p>
+                        }
+                    </div>
+                    <div class="box">
+                        <p>Hovuz</p>
+                        @if (Model.Pool)
+                        {
+                            <p>Var</p>
+                        }
+                        else
+                        {
+                            <p>Yoxdur</p>
+                        }
+                    </div>
+                    <div class="box">
+                        <p>Şəhər</p>
+                        <p>@Model.City.Name</p>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="description">
+                    <p style="color:#333">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    //localStorage.clear();
+    document.addEventListener('DOMContentLoaded', function () {
+        var userId = '@User.FindFirstValue(ClaimTypes.NameIdentifier)';
+        document.querySelectorAll('.favorite').forEach(function (button) {
+            var id = button.dataset.id;
+
+            var isFavorited = localStorage.getItem(userId + '_favorite_' + id);
+            if (isFavorited) {
+                button.classList.add('favorited');
+                button.innerHTML = '<i class="fa-regular fa-heart"></i><span>Seçilmişlərdə</span>';
+            }
+
+            button.addEventListener('click', function () {
+                fetch('/Favorite/AddFavorite?id=' + id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        if (data.success) {
+                            button.classList.add('favorited');
+                            button.innerHTML = '<i class="fa-regular fa-heart"></i><span>Seçilmişlərdə</span>';
+
+                            localStorage.setItem(userId + '_favorite_' + id, true);
+
+                            iziToast.success({
+                                icon: 'fa-solid fa-check',
+                                title: 'Başarılı!',
+                                message: data.message,
+                            });
+                        } else {
+                            localStorage.removeItem(userId + '_favorite_' + id)
+                            button.classList.remove('favorited');
+                            button.innerHTML = '<i class="fa-regular fa-heart"></i><span>Seçilmişlərdə saxla</span>';
+
+                            iziToast.warning({
+                                title: 'Xəbərdarlıq!',
+                                message: data.message,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        iziToast.error({
+                            title: 'Xəta!',
+                            message: 'Favori eklenirken bir hata oluştu.',
+                        });
+                        console.error('Hata:', error);
+                    });
+            });
+        });
+    });
+
+
+
+</script>
+
+<script>
+    document.querySelectorAll('.nextImg').forEach(item => {
+        item.addEventListener('mouseover', e => {
+            document.getElementById('mainImg').src = e.target.src;
+        });
+    });
+    
+</script>
+
+
+
+

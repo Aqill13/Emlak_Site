@@ -12,6 +12,6 @@ namespace EntityLayer.Entities
     {
         public string FullName { get; set; }
         public int ControlCode { get; set; }
-        public virtual List<Advert> Adverts { get; set; }
+        public virtual List<Advert> Adverts { get; set; } = new List<Advert>();
     }
 }

@@ -12,6 +12,7 @@ namespace DataAccessLayer.Abstract
     {
         Task CreateAsync(T entity);
         Task<T> ReadAsync(int id);
+        Task<Contact> ReadInIPAddressAsync(Expression<Func<Contact, bool>> ipAddress);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<List<T>> ListAsync();
@@ -19,5 +20,6 @@ namespace DataAccessLayer.Abstract
         Task<List<T>> ListAsync(string[] includes, Expression<Func<T, bool>> filter);
         Task<List<T>> ListAsync(Expression<Func<T, bool>> filter);
         Task<List<T>> GetImagesInAdvertsAsync(Expression<Func<T, bool>> filter);
+        Task<T> ReadStringIdAsync(string userId);
     }
 }

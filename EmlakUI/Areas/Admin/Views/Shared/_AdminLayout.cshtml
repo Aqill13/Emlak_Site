@@ -4,7 +4,8 @@
     string active = "aktif";
     string controller = ViewContext.RouteData.Values["controller"].ToString();
     string action = ViewContext.RouteData.Values["action"].ToString();
-    var username = (await _userService.GetUserAsync()).FullName;
+    var user = await _userService.GetUserAsync();
+    var username = user != null ? user.FullName : "Anonymous";
 }
 
 <!DOCTYPE html>
@@ -90,9 +91,9 @@
                         <i class="bi bi-search"></i>
                     </a>
                 </li><!-- End Search Icon-->
+                <a class="btn btn-primary" style="font-size:12px; margin-right:10px" asp-area="" asp-controller="Home" asp-action="Index">Web</a>
 
                 <li class="nav-item dropdown">
-
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
                         <span class="badge bg-primary badge-number">4</span>
@@ -302,7 +303,19 @@
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
-
+            <li class="nav-item">
+                <a class="nav-link @(controller == "Users" ? active : "collapsed")" data-bs-target="#Users-nav" data-bs-toggle="collapse" href="#">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users management</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="Users-nav" class="nav-content collapse @(controller == "Users" ? "show" : "")" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a class="@(controller == "Users" && action == "Index" ? active : "")" asp-controller="Users" asp-area="Admin" asp-action="Index">
+                            <i class="bi bi-circle"></i><span>Users List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item">
                 <a class="nav-link @(controller == "Advert" ? active : "collapsed")" data-bs-target="#adverts-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-megaphone"></i>
@@ -375,18 +388,41 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#situations-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-bell"></i>
-                    <span>Situation Management</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link @(controller == "Type" ? active : "collapsed")" data-bs-target="#Type-nav" data-bs-toggle="collapse" href="#">
+                    <i class="fa-solid fa-font-awesome"></i>
+                    <span>Type Management</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="situations-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="Type-nav" class="nav-content collapse @(controller == "Type" ? "show" : "")" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="tables-general.html">
-                            <i class="bi bi-circle"></i><span>Situation List</span>
+                        <a asp-area="Admin" asp-controller="Type" asp-action="Index" class="@(controller == "Type" && action == "Index" ? active : "")">
+                            <i class="bi bi-circle"></i><span>Type List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Type" asp-action="Create" class="@(controller == "Type" && action == "Create" ? active : "")">
+                            <i class="bi bi-circle"></i><span>Add New Type</span>
                         </a>
                     </li>
                     <li>
                         <a href="tables-data.html">
+                            <i class="bi bi-circle"></i><span>Edit Type</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(controller == "Situation" ? active : "collapsed")" data-bs-target="#situations-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-bell"></i>
+                    <span>Situation Management</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="situations-nav" class="nav-content collapse @(controller == "Situation" ? "show" : "")" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-area="Admin" asp-controller="Situation" asp-action="Index" class="@(controller == "Situation" && action == "Index" ? active : "")">
+                            <i class="bi bi-circle"></i><span>Situation List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Situation" asp-action="Create" class="@(controller == "Situation" && action == "Create" ? active : "")">
                             <i class="bi bi-circle"></i><span>Add New Situation</span>
                         </a>
                     </li>

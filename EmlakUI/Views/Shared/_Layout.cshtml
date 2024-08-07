@@ -1,6 +1,9 @@
 ﻿@{
     var user = await _userService.GetUserAsync();
     var username = user != null ? user.FullName : "Guest";
+
+    string active = "activeLink";
+    string action = ViewContext.RouteData.Values["controller"].ToString();
 }
 
 <!doctype html>
@@ -21,13 +24,22 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Estates-Starter/assets/css/style-starter.css">
 
+    <!--JQUERY-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!-- Font aweshome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--IZI TOAST (ALERT)-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+        .activeLink {
+            color: #FB5607 !important;
+        }
         #registerbtn {
             margin-right: -40px;
             color: #3A86FF;
+            
         }
 
         .search-right {
@@ -110,7 +122,7 @@
         <header id="site-header" class="fixed-top">
             <div class="container">
                 <nav class="navbar navbar-expand-lg stroke">
-                    <a class="navbar-brand pr-lg-5" href="index.html">
+                    <a class="navbar-brand pr-lg-5" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/Estates-Starter/assets/images/logo.png" alt="" class="img-fluid">Estates
                     </a>
                     <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
@@ -124,22 +136,22 @@
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul class="navbar-nav mr-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Home</a>
+                                <a class="nav-link @((action == "Home") ? active : "")" asp-controller="Home" asp-action="Index">Ev</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="about.html">About</a>
+                                <a class="nav-link @((action == "About") ? active : "")" asp-controller="About" asp-action="Index">Haqqımızda</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="services.html">Services</a>
+                                <a class="nav-link @((action == "Services") ? active : "")" asp-controller="Services" asp-action="Index">Xidmətlər</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Contact</a>
+                                <a class="nav-link @((action == "Contact") ? active : "")" asp-controller="Contact" asp-action="Index">Əlaqə</a>
                             </li>
                             <li class="search-bar ml-lg-4 mt-lg-0 mt-4">
                                 <!--/search-right-->
                                 <form class="search position-relative">
-                                    <input type="search" class="search__input" name="search" placeholder="Search here.."
+                                    <input type="search" class="search__input" name="search" placeholder="Burada axtar.."
                                            onload="equalWidth()" required="">
                                     <span class="fa fa-search search__icon"></span>
                                 </form>
@@ -152,10 +164,10 @@
                             @if (!User.Identity.IsAuthenticated)
                             {
                                 <li>
-                                    <a asp-area="User" asp-controller="Account" asp-action="Register" class="btn btn-style" id="registerbtn">Register</a>
+                                    <a asp-area="User" asp-controller="Account" asp-action="Register" class="btn btn-style" id="registerbtn">Qeydiyyat</a>
                                 </li>
                                 <li class="mx-3">
-                                    <a asp-area="User" asp-controller="Account" asp-action="Login" class="btn btn-style" id="loginbtn">Login</a>
+                                    <a asp-area="User" asp-controller="Account" asp-action="Login" class="btn btn-style" id="loginbtn">Giriş</a>
                                 </li>
                             }
                             else
@@ -173,17 +185,23 @@
                                                     <span>My Profile</span>
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center" asp-area="" asp-controller="Favorite" asp-action="Index">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                    <span>Seçilmişlər</span>
+                                                </a>
+                                            </li>
 
                                             <li>
                                                 <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                                                     <i class="fa-solid fa-gear"></i>
-                                                    <span>Account Settings</span>
+                                                    <span>Hesab Ayarları</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class="dropdown-item d-flex align-items-center" asp-area="User" asp-controller="Account" asp-action="LogOut">
                                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                                    <span>Sign Out</span>
+                                                    <span>Çıxış</span>
                                                 </a>
                                             </li>
                                         </ul>

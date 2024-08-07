@@ -15,6 +15,7 @@ namespace EntityLayer.Entities
         {
             Images = new List<Images>();
         }
+
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -22,7 +23,9 @@ namespace EntityLayer.Entities
         public int Area { get; set; }
         public int NumberOfRooms { get; set; }
         public int Floor { get; set; }
+        public int fullFloor { get; set; }
         public decimal Price { get; set; }
+        public string? PriceType { get; set; }
         public string Address { get; set; }
         public DateTime AdvertDate { get; set; } = DateTime.UtcNow.AddHours(4);
         public bool Elevator { get; set; }

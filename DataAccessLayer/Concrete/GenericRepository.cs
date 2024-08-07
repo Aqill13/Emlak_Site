@@ -75,6 +75,15 @@ namespace DataAccessLayer.Concrete
             return await _context.Set<T>().Where(filter).ToListAsync();
         }
 
+        public async Task<T> ReadStringIdAsync(string userId)
+        {
+            return await _context.Set<T>().FindAsync(userId);
+        }
+
+        public async Task<Contact> ReadInIPAddressAsync(Expression<Func<Contact, bool>> ipAddress)
+        {
+            return await _context.Set<Contact>().Where(ipAddress).OrderByDescending(m => m.MessageDate).FirstOrDefaultAsync();
+        }
     }
 
 }

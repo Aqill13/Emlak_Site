@@ -1,14 +1,15 @@
 ﻿using BusinessLayer.Abstract;
 using EmlakUI.Areas.User.Models;
 using EntityLayer.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EmlakUI.Areas.User.Controllers
 {
     [Area("User")]
-    //[Authorize(Roles = "User")]
     public class AccountController : Controller
     {
         private readonly UserManager<UserAdmin> _userManager;
@@ -46,7 +47,6 @@ namespace EmlakUI.Areas.User.Controllers
             {
                 return View(model);
             }
-
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null && user.EmailConfirmed)
             {
@@ -65,7 +65,6 @@ namespace EmlakUI.Areas.User.Controllers
             {
                 ModelState.AddModelError("", "Username or password is incorrect");
             }
-
             return View();
         }
 
@@ -152,7 +151,7 @@ namespace EmlakUI.Areas.User.Controllers
             {
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
-                return RedirectToAction(nameof(Login), "Account", new { area = "User"} );
+                return RedirectToAction(nameof(Login), "Account", new { area = "User" });
             }
             else
             {
@@ -167,7 +166,92 @@ namespace EmlakUI.Areas.User.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Login), "Account", new { area = "User"});
+            return RedirectToAction(nameof(Login), "Account", new { area = "User" });
         }
     }
+
+    /*[Area("User")]
+    public class AccountController : Controller
+    {
+        private readonly UserManager<UserAdmin> _userManager;
+        private readonly SignInManager<UserAdmin> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUserService _userService;
+
+        public AccountController(UserManager<UserAdmin> userManager, SignInManager<UserAdmin> signInManager,
+            RoleManager<IdentityRole> roleManager, IUserService userService)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _userService = userService;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(model.Username);
+
+                if (user != null && user.EmailConfirmed)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+                    if (result.Succeeded)
+                    {
+                        await HttpContext.SignOutAsync("AdminScheme"); // Admin oturumunu kapat
+                        HttpContext.Session.SetString("Id", user.Id);
+                        // User oturumunu başlat
+                        var claims = new List<Claim>
+                        {
+                           new Claim(ClaimTypes.Name, user.UserName),
+                           new Claim(ClaimTypes.Role, "User")
+                        };
+
+                        var userIdentity = new ClaimsIdentity(claims, "UserScheme");
+                        var userPrincipal = new ClaimsPrincipal(userIdentity);
+
+                        await HttpContext.SignInAsync("UserScheme", userPrincipal);
+
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Username or Password is incorrect");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Username or Password is incorrect");
+                }
+            }
+
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync("UserScheme");
+            return RedirectToAction(nameof(Login), "Account", new { area = "User" });
+        }
+    }*/
+
+
+
 }

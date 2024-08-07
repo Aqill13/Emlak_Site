@@ -1,0 +1,23 @@
+﻿@model List<EntityLayer.Entities.Advert>
+
+@foreach (var item in Model)
+{
+    <div class="item">
+        <div class="grids4-info">
+            <a href="#"><img style="object-fit: cover; height:220px; width:100%" class="img-fluid" src="~/Pictures/@item.Images.First().ImageUrl" alt="" /></a>
+            <div class="info-bg">
+                <h5 style="font-weight:bold">@item.Title</h5>
+                <span class="price">
+                    <span style="color: #FB5607">₼</span> @item.Price<span style="color: #FB5607"> / </span> @item.PriceType
+                </span>
+                <p>@item.Description</p>
+                <ul style="display:flex;justify-content:space-between;align-items:center;">
+                    <li><span class="fa fa-bed"></span> @item.NumberOfRooms</li>
+                    <li><i class="fa fa-building" style="color: #FB5607"></i> @item.Floor /@item.fullFloor</li>
+                    <li><i class="fa fa-area-chart" style="color: #FB5607"></i> @item.Area m²</li>
+                    <li><a class="btn" asp-controller="More" asp-action="Index" asp-route-id="@item.Id">Ətraflı</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}

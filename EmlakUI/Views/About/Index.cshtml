@@ -1,0 +1,375 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Biz Kimik ? -->
+
+<style>
+    .bizkim{
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+    }
+    .infobiz{
+        width:50%;
+    }
+
+</style>
+
+<section class="w3l-content-4 py-5" style="margin-top:70px;" id="ab">
+    <div class="content-4-main py-lg-5 py-md-4">
+        <div class="container">
+            <div class="bizkim">
+                <div class="infobiz">
+                    <div class="title-content text-left">
+                        <h3 class="title-subhny">Hekayəmiz</h3>
+                        <h3 class="title-w3l pr-lg-5">Biz Kimik ?</h3>
+                    </div>
+                    <p class="my-3">
+                        Biz, uzun illərdən bəri əmlak sektorunda fəaliyyət göstərən bir komanda olaraq,
+                        müştərilərimizin istəkləri və ehtiyacları əsasında onlara ən uyğun mülkü tapmağında 
+                        və satış və icarə proseslərində kömək edirik.<br /><br /> Bizim komandamız, əmlak bazarının
+                        dinamiklərinə daim tərəfdaşlıq edir və müştərilərimizə şəffaflıq, etik davranış
+                        və sürətli həllər təmin edir. Sizi bizimlə əmlak yolculuğuna dəvət edirik və birlikdə 
+                        fərqliliyi yaşamağa çağırırıq.
+                    </p>
+                </div>
+                <div class="imgbiz">
+                    <img style="width:100%" src="/Estates-Starter/assets/images/aboutusHeader.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Missiyamız -->
+
+<div class="w3l-agent-block py-5" id="why">
+    <div class="container py-lg-4">
+        <div class="row align-items-center mt-lg-5">
+            <div class="col-lg-6">
+                <div class="agent-block-image px-lg-5">
+                    <img src="~/Estates-Starter/assets/images/4.png" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-5 pl-lg-5">
+                <h6 class="title-subhny">Məqsədimiz</h6>
+                <h3 class="title-w3l">
+                    Missiyamız
+                </h3>
+                <p class="my-3">
+                    Missiyamız, müştərilərimizə əmlak sahəsində ən yüksək keyfiyyətli xidmətləri təqdim etməkdir.
+                    Biz, dürüstlük, şəffaflıq və peşəkarlıq prinsipləri ilə işləyərək, müştərilərimizin məmnuniyyətini 
+                    və ehtiyaclarını ön planda tuturuq. <br /> <br />Məqsədimiz, hər bir müştərimizə fərdi yanaşma ilə ideal əmlakı 
+                    tapmaqda və satınalma və ya icarə proseslərini asanlaşdırmaqda kömək etməkdir. Bizim üçün ən vacib 
+                    olan şey, müştərilərimizin etibarını qazanmaq və uzunmüddətli əməkdaşlıqlar qurmaqdır.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Niyə Bizi Seçməlisiniz? -->
+
+<style>
+    .features-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .feature-box {
+        background: #f9f9f9;
+        border: 1px solid #999;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        width:100%;
+    }
+
+        .feature-box i {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .feature-box h4 {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .feature-box p {
+            font-size: 15px;
+            color: #555;
+        }
+
+    :root {
+        --blue: #3A86FF;
+        --pink: #FF006E;
+        --yellow: #FFBE0B;
+        --green: #49c938;
+    }
+</style>
+<section class="w3l-content-4 py-5" id="features">
+    <div class="content-4-main py-lg-5 py-md-4">
+        <div class="container">
+            <div class="title-content text-center">
+                <h6 class="title-subhny">Üstünlüklərimiz</h6>
+                <h3 class="title-w3l">
+                    Niyə Bizi Seçməlisiniz?
+                </h3>
+            </div>
+            <div class="content-info-in row pt-5">
+                <div class="features-container">
+                    <div class="feature-box" data-bgcolor="var(--blue)">
+                        <i style ="color:var(--blue)" class="fas fa-star"></i>
+                        <h4>Peşəkarlıq</h4> 
+                        <p>Uzun illərin təcrübəsi ilə sizə ən yaxşı xidmətləri təqdim edirik.</p> 
+                    </div>
+
+                    <div class="feature-box" data-bgcolor="var(--pink)">
+                        <i style="color:var(--pink)" class="fas fa-handshake"></i>
+                        <h4>Etibar</h4> 
+                        <p>Müştərilərimizin etibarını qazanmaq bizə önəmlidir.</p>
+                    </div>
+
+                    <div class="feature-box" data-bgcolor="var(--green)">
+                        <i style="color:var(--green)" class="fas fa-thumbs-up"></i>
+                        <h4>Müştəri Məmnuniyyəti</h4> 
+                        <p>Müştərilərimizin məmnuniyyəti bizim əsas prioritetimizdir.</p> 
+                    </div>
+
+                    <div class="feature-box" data-bgcolor="var(--yellow)">
+                        <i style="color:var(--yellow)" class="fas fa-home"></i>
+                        <h4>Geniş Seçim</h4> 
+                        <p>Müxtəlif əmlak variantları ilə hər kəsin ehtiyacını qarşılayırıq.</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+    const boxes = document.querySelectorAll(".feature-box");
+
+    boxes.forEach((box) => {
+        box.addEventListener("mousemove", (e) => {
+            const mouseX = e.pageX;
+            const mouseY = e.pageY;
+
+            const boxRect = box.getBoundingClientRect();
+            const boxX = boxRect.left + window.scrollX;
+            const boxY = boxRect.top + window.scrollY;
+
+            const offsetX = mouseX - boxX;
+            const offsetY = mouseY - boxY;
+
+            const color = box.getAttribute("data-bgcolor");
+            box.style.background = `radial-gradient(circle at ${offsetX}px ${offsetY}px, ${color} -250%, white 70%)`;
+            
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.background = "";
+        });
+    });
+</script>
+
+<!-- Musteri Memnuniyyeti -->
+
+<style>
+    .ratings-container {
+        margin-top: 40px;
+        position:relative;
+    }
+    .stardiv{
+        position:absolute;
+        left:0;
+        top:50%;
+        transform:translateY(-50%);
+        font-size:120px;
+        color:orange;
+    }
+    .rating-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .rating-label {
+        flex: 1;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .rating-bar {
+        flex: 5;
+        height: 20px;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .bar {
+        height: 100%;
+    }
+
+    .rating-count {
+        text-align: left;
+        padding-left: 10px;
+    }
+</style>
+
+
+<div class="w3l-agent-block py-5" id="why">
+    <div class="container">
+        <div class="title-content text-center">
+            <h6 class="title-subhny">Məmnuniyyət</h6>
+            <h3 class="title-w3l">
+                Müştəri Məmnuniyyəti
+            </h3>
+        </div>
+        <div class="ratings-container">
+            <div class="stardiv">
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="rating-rows">
+                <div class="rating-row">
+                    <div class="rating-label">5 </div>
+                    <div class="rating-bar" title="80%">
+                        <div class="bar" style="width: 80%; background-color: #4CAF50;"></div>
+                    </div>
+                </div>
+                <div class="rating-row">
+                    <div class="rating-label">4 </div>
+                    <div class="rating-bar" title="15%">
+                        <div class="bar" style="width: 15%; background-color: #4CAF50;"></div>
+                    </div>
+                </div>
+                <div class="rating-row">
+                    <div class="rating-label">3 </div>
+                    <div class="rating-bar" title="2%">
+                        <div class="bar" style="width: 2%; background-color: #4CAF50;"></div>
+                    </div>
+                </div>
+                <div class="rating-row">
+                    <div class="rating-label">2 </div>
+                    <div class="rating-bar" title="2%">
+                        <div class="bar" style="width: 2%; background-color: #4CAF50;"></div>
+                    </div>
+                </div>
+                <div class="rating-row">
+                    <div class="rating-label">1 </div>
+                    <div class="rating-bar" title="1%">
+                        <div class="bar" style="width: 1%; background-color: #4CAF50;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- FOOTER -->
+
+<style>
+    .footers-17_social li a i {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background: #FB5607;
+        display: flex;
+        color: #FFF;
+        align-items: center;
+        font-size: 18px;
+        justify-content: center;
+        transition: 0.22s;
+    }
+
+    .footers-17_social li:hover a i {
+        background: #FFF;
+        color: #fb5607;
+        transform: translateY(-5px);
+    }
+</style>
+
+<section class="footer-17">
+    <div class="footer17_sur py-5">
+        <div class="container py-lg-5 py-md-4">
+            <div class="footer17-top">
+                <div class="footer17-top-left1_sur pr-lg-4">
+                    <h6>Bizimlə Əlaqə</h6>
+                    <p>Əlavə məlumat və ya dəstək üçün bizimlə əlaqə saxlayın. Komandamız sizə kömək etmək üçün buradadır.</p>
+                    <ul>
+                        <li><a href="mailto:aqilkalbiyev01@gmail.com">aqilkalbiyev01gmail.com</a></li>
+                        <li><a href="tel:994503730035">(+994) 50 373 0035</a></li>
+                    </ul>
+                    <ul class="footers-17_social">
+                        <li><a href="#url" class="twitter"><i class="fa-brands fa-x-twitter"></i></span></a></li>
+                        <li><a href="#url" class="facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="#url" class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        <li><a href="#url" class="instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left2_sur">
+                    <h6>Populyar Axtarışlar</h6>
+                    <ul>
+                        <li><a>Xidmətlər</a></li>
+                        <li><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="1">Kirayə evlər</a></li>
+                        <li><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="2">Satılıq evlər</a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left3_sur">
+                    <h6>Sürətli Bağlantılar</h6>
+                    <ul>
+                        <li><a asp-controller="About" asp-action="Index">Haqqımızda</a></li>
+                        <li><a asp-controller="Services" asp-action="Index">Xidmətlər</a></li>
+                        <li><a asp-controller="Contact" asp-action="Index">Əlaqə</a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left4_sur">
+                    <h6>BÜLLETENİMİZƏ ABUNƏ OLUN</h6>
+                    <p>E-poçtunuzu daxil edin və bizdən ən son xəbərləri alın.</p>
+                    <div class="w3l-footer-subscribe mt-4">
+                        <form action="#" class="subscribe" method="post">
+                            <input type="email" name="email" placeholder="E-poçt ünvanınız" required="">
+                            <button><span class="fa fa-paper-plane-o pr-1"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright text-center">
+            <div class="container">
+                <p class="copy-footer-29">
+                    © 2024 Estates. All rights reserved | Bütün Hüquqlar Qorunur</a>
+                </p>
+            </div>
+        </div>
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            &#10548;
+        </button>
+        <script>
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+        <!-- /move top -->
+    </div>
+</section>

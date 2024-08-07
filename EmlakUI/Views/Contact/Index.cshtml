@@ -1,0 +1,211 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EntityLayer.Entities.Contact
+
+@if (TempData["successSendMessage"] != null)
+{
+    <script>
+        iziToast.settings({
+            timeout: 3000,
+            resetOnHover: false,
+            icon: 'material-icons',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+        });
+
+        iziToast.success({
+            icon: 'fa-solid fa-check',
+            message: '@TempData["successSendMessage"]',
+        });
+    </script>
+}
+@if (TempData["timeMessage"] != null)
+{
+    <script>
+        iziToast.settings({
+            timeout: 3000,
+            resetOnHover: false,
+            icon: 'material-icons',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+        });
+
+        iziToast.warning({
+            message: '@TempData["timeMessage"]',
+        });
+    </script>
+}
+
+<section class="w3l-contact-2 py-5" id="contact" style="margin-top:70px">
+    <div class="container py-lg-5 py-md-4 py-2">
+        <div class="title-content text-center">
+            <h6 class="title-subhny text-center">ƏLAQƏ</h6>
+            <h3 class="title-w3l mb-sm-5 mb-4 pb-sm-o pb-2 text-center">Bizimlə Əlaqə Saxlayın</h3>
+        </div>
+        <div class="contact-grids d-grid">
+            <div class="contact-left-img">
+                <div class="cont-details">
+                    <div class="cont-top margin-up">
+                        <div class="cont-left text-center">
+                            <span class="fa fa-map-marker"></span>
+                        </div>
+                        <div class="cont-right">
+                            <h6>Bizi ziyarət edin</h6>
+                            <p>Bakı şəhər, Elmlər Akademiyası, Hüseyn Cavid pr.</p>
+                        </div>
+                    </div>
+                    <div class="cont-top margin-up">
+                        <div class="cont-left text-center">
+                            <span class="fa fa-phone"></span>
+                        </div>
+                        <div class="cont-right">
+                            <h6>Bizə Zəng Edin</h6>
+                            <p><a href="tel:994503730035">(+994) 50 373 0035</a></p>
+                            <p><a href="tel:994559612005">(+994) 55 961 2005</a></p>
+                        </div>
+                    </div>
+                    <div class="cont-top margin-up">
+                        <div class="cont-left text-center">
+                            <span class="fa fa-envelope-o"></span>
+                        </div>
+                        <div class="cont-right">
+                            <h6>Bizə e-poçt göndərin</h6>
+                            <p><a href="mailto:aqilkalbiyev01@gmail.com" class="mail">aqilkalbiyev01@gmail.com</a></p>
+                            <p><a href="mailto:aqilkelbiyev2005@gmail.com" class="mail">aqilkelbiyev2005@gmail.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-right">
+                <form asp-controller="Contact" asp-action="SendMessage" method="post" class="signin-form">
+                    <div class="input-grids">
+
+                        <input type="text" asp-for="Name" id="w3lName" placeholder="Adınız*" class="contact-input"
+                               required="" autocomplete="off"/>
+                        <input type="email" asp-for="Email" id="w3lSender" placeholder="E-poçt ünvanınız*" class="contact-input"
+                               required="" autocomplete="off"/>
+                        <input type="text" asp-for="Subject" id="w3lSubect" placeholder="Mövzu*" class="contact-input"
+                               required="" autocomplete="off" />
+                    </div>
+                    <div class="form-input">
+                        <textarea asp-for="Message" id="w3lMessage" placeholder="Mesajınızı yazın*" required=""></textarea>
+                    </div>
+                    <div class="form-buttonhny text-lg-right">
+                        <button type="submit" class="btn btn-style btn-primary">Göndər</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="map-iframe mt-5 mb-lg-5 pb-lg-4">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317718.69319292053!2d-0.3817765050863085!3d51.528307984912544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C+UK!5e0!3m2!1sen!2spl!4v1562654563739!5m2!1sen!2spl"
+                    width="100%" height="400" frameborder="0" style="border: 0px;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+
+<style>
+    .footers-17_social li a i {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background: #FB5607;
+        display: flex;
+        color: #FFF;
+        align-items: center;
+        font-size: 18px;
+        justify-content: center;
+        transition: 0.22s;
+    }
+
+    .footers-17_social li:hover a i {
+        background: #FFF;
+        color: #fb5607;
+        transform: translateY(-5px);
+    }
+</style>
+
+<section class="footer-17">
+    <div class="footer17_sur py-5">
+        <div class="container py-lg-5 py-md-4">
+            <div class="footer17-top">
+                <div class="footer17-top-left1_sur pr-lg-4">
+                    <h6>Bizimlə Əlaqə</h6>
+                    <p>Əlavə məlumat və ya dəstək üçün bizimlə əlaqə saxlayın. Komandamız sizə kömək etmək üçün buradadır.</p>
+                    <ul>
+                        <li><a href="mailto:aqilkalbiyev01@gmail.com">aqilkalbiyev01gmail.com</a></li>
+                        <li><a href="tel:994503730035">(+994) 50 373 0035</a></li>
+                    </ul>
+                    <ul class="footers-17_social">
+                        <li><a href="#url" class="twitter"><i class="fa-brands fa-x-twitter"></i></span></a></li>
+                        <li><a href="#url" class="facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="#url" class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        <li><a href="#url" class="instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left2_sur">
+                    <h6>Populyar Axtarışlar</h6>
+                    <ul>
+                        <li><a>Xidmətlər</a></li>
+                        <li><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="1">Kirayə evlər</a></li>
+                        <li><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="2">Satılıq evlər</a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left3_sur">
+                    <h6>Sürətli Bağlantılar</h6>
+                    <ul>
+                        <li><a asp-controller="About" asp-action="Index">Haqqımızda</a></li>
+                        <li><a asp-controller="Services" asp-action="Index">Xidmətlər</a></li>
+                        <li><a asp-controller="Contact" asp-action="Index">Əlaqə</a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left4_sur">
+                    <h6>BÜLLETENİMİZƏ ABUNƏ OLUN</h6>
+                    <p>E-poçtunuzu daxil edin və bizdən ən son xəbərləri alın.</p>
+                    <div class="w3l-footer-subscribe mt-4">
+                        <form action="#" class="subscribe" method="post">
+                            <input type="email" name="email" placeholder="E-poçt ünvanınız" required="">
+                            <button><span class="fa fa-paper-plane-o pr-1"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright text-center">
+            <div class="container">
+                <p class="copy-footer-29">
+                    © 2024 Estates. All rights reserved | Bütün Hüquqlar Qorunur</a>
+                </p>
+            </div>
+        </div>
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            &#10548;
+        </button>
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+        <!-- /move top -->
+    </div>
+</section>

@@ -1,0 +1,11 @@
+﻿
+@model List<EntityLayer.Entities.Type>
+
+
+@foreach(var item in Model)
+{
+    <div class="subscribe-cat-gd">
+        <a asp-controller="Home" asp-action="AdvertByType" asp-route-id="@item.Id" class="subscribe-cat-link">@item.Name</a>
+        <p class="mt-2">Lorem ipsum viverra feugiat. Pellen tesque libero justo.</p>
+    </div>
+}

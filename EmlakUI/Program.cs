@@ -1,5 +1,4 @@
-﻿
-using BusinessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
@@ -14,13 +13,16 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Servisləri konteynerə əlavə etmək
 builder.Services.AddControllersWithViews();
 
+// Identity və DbContext konfiqurasiyası
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<UserAdmin, IdentityRole>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<UserAdmin, IdentityRole>()
+    .AddEntityFrameworkStores<Context>()
+    .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(opt =>
 {
@@ -38,10 +40,44 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.AccessDeniedPath = "/Admin/Admin/AccessDenied";
     opt.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("admin"));
+    options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
+});
 
+// Authentication və Authorization konfiqurasiyası
+/*builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie("AdminScheme", options =>
+{
+    options.Cookie.Name = "Admin.Cookie";
+    options.LoginPath = "/Admin/Admin/Login";
+    options.AccessDeniedPath = "/Admin/Admin/AccessDenied";
+})
+.AddCookie("UserScheme", options =>
+{
+    options.Cookie.Name = "User.Cookie";
+    options.LoginPath = "/User/Account/Login";
+    options.AccessDeniedPath = "/User/Account/AccessDenied";
+});
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+        policy.RequireRole("admin")
+              .AddAuthenticationSchemes("AdminScheme"));
+    options.AddPolicy("UserPolicy", policy =>
+        policy.RequireRole("User")
+              .AddAuthenticationSchemes("UserScheme"));
+});*/
+
+// HttpContextAccessor əlavə etmək
 builder.Services.AddHttpContextAccessor();
 
+// Scoped servisələr
 builder.Services.AddScoped<IAdvertService, AdvertManager>();
 builder.Services.AddScoped<IUserService, BusinessLayer.Concrete.UserManager>();
 builder.Services.AddScoped<ICityService, CityManager>();
@@ -57,29 +93,41 @@ builder.Services.AddScoped<IGeneralSettingsRepository, GeneralSettingsRepository
 builder.Services.AddScoped<IImagesRepository, ImagesRepository>();
 builder.Services.AddScoped<ISituationRepository, SituationRepository>();
 builder.Services.AddScoped<ITypeRepository, TypeRepository>();
+builder.Services.AddScoped<IUsersService, UsersManager>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IFavoritesService, FavoritesManager>();
+builder.Services.AddScoped<IFavoritesRepository, FavoritesRepository>();
+builder.Services.AddScoped<IContactService, ContactManager>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
-//session
+// Session idarə etmək
 builder.Services.AddSession();
 
 var app = builder.Build();
 
+// Verilənlər bazasını hazırlamaq və təmin etmək
 app.PrepareDatabase().GetAwaiter().GetResult();
 
+// Təstiq mühitində olmadıqda istisna idarəetməsi
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
+// HTTPS-yə yönləndirmə və statik faylları təmin etmək
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+// Yol istifadəsini idarə etmək
 app.UseRouting();
 
+// Authorization və session idarəetməsini idarə etmək
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 
-
+// Endpointləri qurmag
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -92,13 +140,10 @@ app.UseEndpoints(endpoints =>
         pattern: "{area:exists}/{controller=User}/{action=Login}/{id?}"
     );
 
-
-});
-app.MapControllerRoute(
+    endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Admin}/{action=Index}/{id?}"
     );
-
-
+});
 
 app.Run();

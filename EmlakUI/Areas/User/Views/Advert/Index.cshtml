@@ -186,7 +186,9 @@
 
 </style>
 
-<div id="table-container">
+@if(Model.Count > 0)
+{
+    <div id="table-container">
     <table class="table table-bordered display nowrap" id="table" style="width:100%">
         <thead>
             <tr>
@@ -278,7 +280,15 @@
             }
         </tbody>
     </table>
-</div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" style="margin-top: 110px">
+        <p>You have no ads</p>
+    </div>
+}
+
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>

@@ -1,0 +1,33 @@
+﻿
+@model List<EntityLayer.Entities.Advert>
+
+@foreach(var item in Model)
+{
+    <div class="box">
+        <div class="grids4-info">
+            <a href="#"><img class="img-fluid" style="height:230px;object-fit:cover;width:100%" src="/Pictures/@item.Images.First().ImageUrl" alt="" /></a>
+            <div class="info-bg">
+                <h5 class="font-weight-bold" style="color:#0B2238">@item.Title</h5>
+                @if(item.SituationId == 1)
+                {
+                    <h6 class="my-1">₼ @item.Price <span class="price_type">/ @item.PriceType</span></h6>
+                }
+                else
+                {
+                    <h6 class="my-1">₼ @item.Price</h6>
+                }
+                <p>@item.City.Name, @item.District.Name</p>
+
+                <ul class="d-flex justify-content-between" style="margin-bottom:3px; color: #3E89FF;">
+                    <li>@item.NumberOfRooms otaqlı</li>
+                    <li>@item.Floor/@item.fullFloor mərtəbə</li>
+                    <li>@item.Area m²</li>
+                </ul>
+                <span>@item.City.Name, @item.AdvertDate</span>
+                <div class="moreBtnDiv">
+                    <a asp-controller="More" asp-action="Index" asp-route-id="@item.Id" class="btn w-100 my-2 more">Ətraflı</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

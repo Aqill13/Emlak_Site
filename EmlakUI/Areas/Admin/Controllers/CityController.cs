@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmlakUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "AdminPolicy")]
     public class CityController : Controller
     {
         ICityService _cityService;

@@ -56,6 +56,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<bool>("Elevator")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("FavoritesId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
@@ -71,6 +74,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PriceType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SituationId")
                         .HasColumnType("int");
@@ -89,11 +95,16 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("fullFloor")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
                     b.HasIndex("DistrictId");
+
+                    b.HasIndex("FavoritesId");
 
                     b.HasIndex("SituationId");
 
@@ -124,6 +135,41 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("EntityLayer.Entities.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MessageDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ipAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("EntityLayer.Entities.District", b =>
                 {
                     b.Property<int>("Id")
@@ -147,6 +193,26 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Districts");
+                });
+
+            modelBuilder.Entity("EntityLayer.Entities.Favorites", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdvertId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("EntityLayer.Entities.GeneralSettings", b =>
@@ -462,6 +528,10 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("EntityLayer.Entities.Favorites", null)
+                        .WithMany("Advert")
+                        .HasForeignKey("FavoritesId");
+
                     b.HasOne("EntityLayer.Entities.Situation", "Situation")
                         .WithMany("Adverts")
                         .HasForeignKey("SituationId")
@@ -579,6 +649,11 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("EntityLayer.Entities.District", b =>
                 {
                     b.Navigation("Adverts");
+                });
+
+            modelBuilder.Entity("EntityLayer.Entities.Favorites", b =>
+                {
+                    b.Navigation("Advert");
                 });
 
             modelBuilder.Entity("EntityLayer.Entities.Situation", b =>

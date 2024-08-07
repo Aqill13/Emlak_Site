@@ -1,0 +1,354 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="w3l-index3" id="about" style="margin-top:70px;">
+    <div class="midd-w3 py-5">
+        <div class="container py-lg-5 py-md-3 py-2">
+            <h3 class="title-subhny"> Xidmətlər</h3>
+            <h3 class="title-w3l mx-0">Təklif Etdiyimiz xidmətlər</h3>
+            <p>Bir sıra xidmətlər təklif edirik</p>
+            <div class="row">
+                <div class="col-lg-5 mb-lg-0 mb-md-5 mb-4 align-self pr-lg-5">
+                    <img src="/Estates-Starter/assets/images/g4.jpg" alt="" class="radius-image img-fluid">
+                </div>
+                <div class="col-lg-7">
+                    <div class="row position-relative">
+                        <div class="col-md-6 col-7">
+                            <img src="/Estates-Starter/assets/images/g5.jpg" alt="" class="radius-image img-fluid">
+                        </div>
+                        <div class="col-md-5 col-5 pl-lg-5 pl-0 mt-lg-5">
+                            <img src="/Estates-Starter/assets/images/g6.jpg" alt="" class="radius-image img-fluid">
+                        </div>
+                    </div>
+                    <p class="mt-md-5 mt-3">
+                        Biz, müştərilərimizin ehtiyaclarını qarşılamaq və onların məmnuniyyətini təmin
+                        etmək üçün geniş çeşidli xidmətlər təklif edirik. Təcrübəli və peşəkar komandamız,
+                        hər bir müştərinin fərdi tələblərinə uyğun olaraq xüsusi xidmətlər təqdim edir.
+                        Əmlak sektorundakı geniş təcrübəmiz və biliklərimiz sayəsində, biz sizə ən uyğun 
+                        həlləri və ən yüksək keyfiyyətdə xidmətləri təqdim etməyə sadiqik.
+                    </p>
+                    <a href="#moree" class="btn btn-style btn-primary mt-md-5 mt-4">Başla <span class="fa fa-arrow-right ml-3"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Dangrek&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+    .service-box h4 {
+        font-family: "Rubik", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: <weight>;
+        font-style: normal;
+        color: #444;
+    }
+    .boxesservice{
+        display:grid;
+        grid-template-columns: repeat(4,1fr);
+        gap:20px;
+        margin-top:60px;
+    }
+    @@media(max-width: 1000px){
+        .boxesservice{
+            grid-template-columns: repeat(2,1fr);
+        }
+    }
+    @@media(max-width: 480px){
+        .boxesservice{
+            grid-template-columns: repeat(1,1fr);
+        }
+    }
+    .service-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        gap:10px;
+        transition:0.3s;
+    }
+
+
+        .service-box:hover{
+            box-shadow: 0 0 4px #3e89ff;
+        }
+
+    .service-icon {
+        font-size: 35px;
+        color:#3e89ff;
+        margin-bottom: 10px;
+    }
+</style>
+<section class="w3l-portfolio-8 py-5" id="moree">
+    <div class="portfolio-main py-lg-5 py-md-4 py-2">
+        <div class="container">
+            <div class="title-content text-center">
+                <h3 class="title-subhny">Xidmətlər</h3>
+                <h3 class="title-w3l">Seçilmiş Xidmətlər</h3>
+            </div>
+            <div class="grids-area-hny main-cont-wthree-fea row">
+                <div class="boxesservice">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4>Əmlakın İdarə Edilməsi</h4>
+                        <p>Mənzillərin dəyərləndirilməsi, icarəyə verilməsi və idarə olunması ilə əlaqəli hər hansısa məsələlərdə kömək.</p>
+                    </div>
+
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>İpoteka Xidmətləri</h4>
+                        <p>Mülkiyyətə gətirilmiş kredit təklifləri və ipoteka müqavilələri ilə bağlı konsultasiya xidmətləri.</p>
+                    </div>
+
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h4>Satış Xidmətləri</h4>
+                        <p>Əmlak satışı və bu prosesdə maliyyə xidmətləri təklif olunması.</p>
+                    </div>
+
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h4>İcarə Xidmətləri</h4>
+                        <p>Mənzil icarəyə verilməsi və icarə müqavilələri ilə bağlı məsləhət xidmətləri.</p>
+                    </div>
+
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h4>Pulsuz Elan Yerləşdirmə</h4>
+                        <p>Əmlak satışı və icarəyə vermədən öncə pulsuz elan yerləşdirilməsi imkanları.</p>
+                    </div>
+
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h4>Hüquqi Dəstək</h4>
+                        <p>Əmlak məsələlərinin hüquqi tərəfdarlığı, mülkiyyət haqları və sığorta məsələləri ilə bağlı məsləhət.</p>
+                    </div>
+
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4>Təklif və Müzakirə</h4>
+                        <p>Müştərilərlə görüşlər və əmlak mülkiyyəti ilə bağlı təklif və müzakirə prosesləri.</p>
+                    </div>
+
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h4>Yeni Layihələr</h4>
+                        <p>Yeni tikinti layihələri və əmlak investisiya imkanları ilə bağlı məlumatlar və təkliflər.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="w3l-content-4 py-5" id="features">
+    <div class="content-4-main py-lg-5 py-md-4">
+        <div class="container">
+            <div class="title-content text-center">
+                <h3 class="title-subhny">Bizim Yol Göstəricilərimiz</h3>
+                <h3 class="title-w3l">Ən geniş seçim və daimi yeniliklər</h3>
+            </div>
+            <div class="content-info-in row pt-5">
+                <div class="content-left col-lg-4 mt-lg-0 mt-md-5 mt-3">
+                    <div class="content-4-main-gd">
+                        <div class="row content4-right-grids">
+                            <div class="col-sm-3 content4-right-icon">
+                                <div class="content4-icon icon-clr1">
+                                    <span class="fa fa-briefcase"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 content4-right-info pl-4">
+                                <h6><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="2">Yeni ev al</a></h6>
+                                <p>Yeni bir ev almaq üçün ən geniş seçim.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-left col-lg-4 mt-lg-0 mt-md-5 mt-3">
+                    <div class="content-4-main-gd">
+                        <div class="row content4-right-grids">
+                            <div class="col-sm-3 content4-right-icon">
+                                <div class="content4-icon icon-clr2">
+                                    <span class="fa fa-eye"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 content4-right-info pl-4">
+                                <h6><a asp-controller="Home" asp-action="AdvertBySituation">Hamısına bax</a></h6>
+                                <p>Bütün əmlak elanlarına baxmaq və seçim etmək.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-left col-lg-4 mt-lg-0 mt-md-5mt-3">
+                    <div class="content-4-main-gd">
+                        <div class="row content4-right-grids">
+                            <div class="col-sm-3 content4-right-icon">
+                                <div class="content4-icon icon-clr3">
+                                    <span class="fa fa-key"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 content4-right-info pl-4">
+                                <h6><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="1">Kirayə ev</a></h6>
+                                <p>Kirayə mənzil tapmaq üçün ən geniş seçim.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="w3l-agent-block py-5" id="why">
+    <div class="container py-lg-4">
+        <div class="row align-items-center mt-5">
+            <div class="col-lg-6">
+                <div class="agent-block-image px-lg-5">
+                    <img src="/Estates-Starter/assets/images/2.png" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-5 pl-lg-5">
+                <h6 class="title-subhny">Araşdırın</h6>
+                <h3 class="title-w3l">
+                    Əmlak Növünə Görə Araşdırın
+                </h3>
+                <p class="my-3">
+                    Bu bölmədə müxtəlif əmlak növləri üçün kateqoriyaları kəşf edin.
+                </p>
+
+                <div class="subscribe-cat">
+                    @await Component.InvokeAsync("TypeGetList")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+
+<style>
+    .footers-17_social li a i {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background: #FB5607;
+        display: flex;
+        color: #FFF;
+        align-items: center;
+        font-size: 18px;
+        justify-content: center;
+        transition: 0.22s;
+    }
+
+    .footers-17_social li:hover a i {
+        background: #FFF;
+        color: #fb5607;
+        transform: translateY(-5px);
+    }
+</style>
+
+<section class="footer-17">
+    <div class="footer17_sur py-5">
+        <div class="container py-lg-5 py-md-4">
+            <div class="footer17-top">
+                <div class="footer17-top-left1_sur pr-lg-4">
+                    <h6>Bizimlə Əlaqə</h6>
+                    <p>Əlavə məlumat və ya dəstək üçün bizimlə əlaqə saxlayın. Komandamız sizə kömək etmək üçün buradadır.</p>
+                    <ul>
+                        <li><a href="mailto:aqilkalbiyev01@gmail.com">aqilkalbiyev01gmail.com</a></li>
+                        <li><a href="tel:994503730035">(+994) 50 373 0035</a></li>
+                    </ul>
+                    <ul class="footers-17_social">
+                        <li><a href="#url" class="twitter"><i class="fa-brands fa-x-twitter"></i></span></a></li>
+                        <li><a href="#url" class="facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="#url" class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        <li><a href="#url" class="instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left2_sur">
+                    <h6>Populyar Axtarışlar</h6>
+                    <ul>
+                        <li><a>Xidmətlər</a></li>
+                        <li><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="1">Kirayə evlər</a></li>
+                        <li><a asp-controller="Home" asp-action="AdvertBySituation" asp-route-id="2">Satılıq evlər</a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left3_sur">
+                    <h6>Sürətli Bağlantılar</h6>
+                    <ul>
+                        <li><a asp-controller="About" asp-action="Index">Haqqımızda</a></li>
+                        <li><a asp-controller="Services" asp-action="Index">Xidmətlər</a></li>
+                        <li><a asp-controller="Contact" asp-action="Index">Əlaqə</a></li>
+                    </ul>
+                </div>
+                <div class="footer17-top-left4_sur">
+                    <h6>BÜLLETENİMİZƏ ABUNƏ OLUN</h6>
+                    <p>E-poçtunuzu daxil edin və bizdən ən son xəbərləri alın.</p>
+                    <div class="w3l-footer-subscribe mt-4">
+                        <form action="#" class="subscribe" method="post">
+                            <input type="email" name="email" placeholder="E-poçt ünvanınız" required="">
+                            <button><span class="fa fa-paper-plane-o pr-1"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright text-center">
+            <div class="container">
+                <p class="copy-footer-29">
+                    © 2024 Estates. All rights reserved | Bütün Hüquqlar Qorunur</a>
+                </p>
+            </div>
+        </div>
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            &#10548;
+        </button>
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+        <!-- /move top -->
+    </div>
+</section>

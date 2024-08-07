@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace EmlakUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "AdminPolicy")]
     public class DistrictController : Controller
     {
         private readonly IDistrictService _districtService;

@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Security.Claims
+@model List<EntityLayer.Entities.Favorites>
+
+<section class="w3l-agent-block py-5" id="news">
+    <div class="container py-lg-5 py-md-5 py-2">
+        <div class="row">
+            <div class="title-content text-center">
+                <h6 class="title-subhny">SEÇİLMİŞLƏR</h6>
+                <h3 class="title-w3l">
+                    Sizin Seçdiyləriniz
+                </h3>
+            </div>
+        </div>
+        <table class="table my-5">
+            <thead>
+                <tr>
+                    <th>Elan Başlığı</th>
+                    <th>Sahə</th>
+                    <th>Otaq sayı</th>
+                    <th>Qiymət</th>
+                    <th>Aylıq/Günlük</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var favorite in Model)
+                {
+                    foreach (var advert in favorite.Advert)
+                    {
+                        <tr>
+                            <td>@advert.Title</td>
+                            <td>@advert.Area</td>
+                            <td>@advert.NumberOfRooms</td>
+                            <td>@advert.Price</td>
+                            <td>@advert.PriceType</td>
+                            <td>
+                                <a asp-controller="More" asp-action="Index" asp-route-id="@advert.Id" class="btn btn-info">Ətraflı</a>
+                                <button data-id="@favorite.Id" data-advertid="@advert.Id" class="btn btn-danger remove-favorite">Sil</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+        var userId = '@User.FindFirstValue(ClaimTypes.NameIdentifier)';
+        document.querySelectorAll(".remove-favorite").forEach((button) => {
+
+            var id = button.dataset.id;
+            var adv_id = button.dataset.advertid;
+
+            button.addEventListener("click", () => {
+
+                fetch("/Favorite/DeleteFavorite?id=" + id, {
+                    method: 'delete',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    if (data.success) {
+                            var itemKey = userId + '_favorite_' + adv_id;
+                            console.log('Removing item with key:', itemKey);
+                            localStorage.removeItem(itemKey);
+
+                            iziToast.success({
+                                icon: 'fa-solid fa-check',
+                                title: 'Başarılı!',
+                                message: data.message,
+                            });
+                            button.closest("tr").remove();
+                    }
+                    else{
+                            iziToast.success({
+                                icon: 'fa-solid fa-check',
+                                title: 'Xəta!',
+                                message: data.message,
+                            });
+                    }
+                })
+                    .catch(errors => {
+                        iziToast.error({
+                            title: 'Xəta!',
+                            message: 'Favori silinərkən bir xəta yarandı.',
+                        });
+                        console.error('Hata:', error);
+                    })
+
+            })
+
+        })
+
+    })
+
+</script>
+

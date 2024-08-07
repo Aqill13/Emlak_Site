@@ -1,4 +1,5 @@
-﻿@model Advert
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model Advert
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -13,10 +14,19 @@
     }
 
 </style>
-
+@if (ViewData["Errors"] != null)
+{
+    var errors = (IEnumerable<ModelError>)ViewData["Errors"];
+    foreach (var err in errors)
+    {
+        <div class="alert alert-danger">
+            <p>@err.ErrorMessage</p>
+        </div>
+    }
+}
 <form method="post" enctype="multipart/form-data" style="margin-bottom:50px">
 
-    <input type="hidden" asp-for="UserAdminId" value="@TempData["id"]" />
+    <input type="hidden" asp-for="UserAdminId" value="@TempData["adminid"]" />
 
     <label>Title</label>
     <input type="text" asp-for="Title" class="form-control" required />
@@ -56,12 +66,27 @@
     <input type="number" asp-for="NumberOfRooms" class="form-control" required />
     <br />
 
-    <label>Floor</label>
-    <input type="number" asp-for="Floor" class="form-control" required />
+    <div style="display: flex; gap:20px; align-items: center;">
+        <label>Floor</label>
+        <input type="number" asp-for="Floor" class="form-control" required />
+        <label>Full Floor</label>
+        <input type="number" asp-for="fullFloor" class="form-control" required />
+    </div>
     <br />
-
-    <label>Price</label>
-    <input type="number" asp-for="Price" class="form-control" required />
+    <div id="priceDiv" style="display: flex; gap: 20px; align-items: center">
+        <div style="display: none;" id="priceType">
+            <div class="d-flex w-100">
+                <label>Price Type</label>
+                <select asp-for="PriceType" class="form-control">
+                    <option value="">Select a price type</option>
+                    <option value="Günlük">Günlük</option>
+                    <option value="Aylıq">Aylıq</option>
+                </select>
+            </div>
+        </div>
+        <label>Price</label>
+        <input type="text" id="price" asp-for="Price" class="form-control" required>
+    </div>
     <br />
     <div class="d-flex mb-4">
         <div class="w-100 d-flex align-items-center">
@@ -103,11 +128,11 @@
     <label>Address</label>
     <input type="text" asp-for="Address" class="form-control" required />
     <br />
-    
+
     <label>Phone number</label>
     <input type="number" asp-for="PhoneNumber" class="form-control" required />
     <br />
-    
+
     <div class="upload-container form-control">
         <label>Images</label>
         <input id="fileInput" type="file" multiple asp-for="Image" accept="image/*" class="form-control" required />
@@ -122,7 +147,6 @@
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
     $(document).ready(function () {
         $("#CityId").change(function () {
             var id = $(this).val();
@@ -137,6 +161,15 @@
                     $("#DistrictId").append(response);
                 }
             });
+        });
+        $('#SituationId').change(function () {
+            var selectedSituation = $(this).val();
+
+            if (selectedSituation === '1') {
+                $('#priceType').show();
+            } else {
+                $('#priceType').hide();
+            }
         });
         $('#fileInput').on('change', function () {
             var files = this.files;
